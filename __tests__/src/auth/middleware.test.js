@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-disable */
 
 process.env.SECRET="test";
 
@@ -44,6 +44,7 @@ describe('Auth Middleware', () => {
 
       return middleware(req, res, next)
         .then(() => {
+
           expect(next).toHaveBeenCalledWith(errorObject);
         });
 

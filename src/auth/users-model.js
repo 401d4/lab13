@@ -44,6 +44,27 @@ users.statics.authenticateBasic = function(auth) {
     .catch(error => {throw error;});
 };
 
+users.statics.authenticateToken = async function(token) {
+  try {
+    let tokenData = jwt.decode(token);
+    let user = await this.findById(tokenData.id);
+
+    if (user && jwt.verify(token, user.generateSecret())) {
+      return user;
+    }
+
+    return null;
+  }
+  catch (error) {
+    console.warn('TOKEN ERROR', error);
+    return null;
+  }
+};
+
+users.methods.generateSecret = function() {
+  return (process.env.SECRET || 'changeit') + this.password;
+};
+
 users.methods.comparePassword = function(password) {
   return bcrypt.compare( password, this.password )
     .then( valid => valid ? this : null);

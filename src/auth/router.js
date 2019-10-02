@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 const express = require('express');
@@ -15,12 +16,14 @@ authRouter.post('/signup', (req, res, next) => {
       req.user = user;
       res.set('token', req.token);
       res.cookie('auth', req.token);
+      console.log('signed up');
       res.send(req.token);
     }).catch(next);
 });
 
 authRouter.post('/signin', auth, (req, res, next) => {
   res.cookie('auth', req.token);
+  console.log('signed in');
   res.send(req.token);
 });
 

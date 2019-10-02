@@ -18,6 +18,7 @@ async function startDB() {
 
   const mongooseOptions = {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
     useCreateIndex: true,
   };
 
