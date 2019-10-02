@@ -44,6 +44,15 @@ users.statics.authenticateBasic = function(auth) {
     .catch(error => {throw error;});
 };
 
+// users.statics.authenticateToken = async function(token) {
+//   try {
+//     let tokenData = jwt.decode(token);
+//     let user = await this.findById(tokenData.id);
+
+//     if (user && jwt.verify(token, user.generateSecret())) {
+//       return user;
+// };
+
 users.methods.comparePassword = function(password) {
   return bcrypt.compare( password, this.password )
     .then( valid => valid ? this : null);
