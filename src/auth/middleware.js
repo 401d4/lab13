@@ -10,12 +10,10 @@ module.exports = (req, res, next) => {
     switch( authType.toLowerCase() ) {
     case 'basic': 
       return _authBasic(authString);
-    default: 
+    case 'bearer':
+      return _authBearer(authString);
+    default:
       return _authError();
-    // case 'bearer':
-    //   return _authBearer(authString);
-    // default:
-    //   return _authError();
     }
   }
   catch(e) {
@@ -35,10 +33,10 @@ module.exports = (req, res, next) => {
       .catch(next);
   }
 
-  // async function _authBearer(token) {
-  //   let user = await User.authenticateToken(token);
-  //   return _authenticate(user);
-  // }
+  async function _authBearer(token) {
+    let user = await User.authenticateToken(token);
+    return _authenticate(user);
+  }
 
   function _authenticate(user) {
     if(user) {
